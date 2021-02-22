@@ -63,6 +63,11 @@ class Deck:
                 self.content.append(e)
 
     def remove_card(self, index_of_card: int) -> Card:
+        """
+        Method to remove a card from this deck.
+
+        :return: The card removed from this deck.
+        """
         return self.content.pop(index_of_card)
         
 class Player:
@@ -76,15 +81,31 @@ class Player:
         self.hand = Deck()
 
     def __str__(self) -> str:
+        """
+        :return: The role, the hand and the score of this player as a string.
+        """
         return f'{self.role} : {str(self.hand)} - {self.score()} points.'
 
     def add_card(self, card: Card) -> None:
+        """
+        Method to add a card to this player's hand.
+        """
         self.hand.add_card(card)
 
     def give_card(self, index_of_card: int) -> Card:
+        """
+        Method to remove a card from this player's hand.
+
+        :return: The card removed from this player's hand.
+        """
         return self.hand.remove_card(index_of_card)
 
     def score(self) -> int:
+        """
+        Method to calculate this player's score (amount of points from their cards).
+
+        :return: This player's score.
+        """
         score = 0
         stamp = []
         while len(self.hand) > 0:
@@ -130,7 +151,7 @@ def game(credit=100):
     ############################################
     # BET
     ############################################
-    bet = int(input('How much do you bet this game? '))
+    bet = int(input(f'How much do you bet this game ({credit} credits)? '))
     while 0 > bet > credit:
         bet = int(input('You can not bet that amount, how much do you bet? '))
 
@@ -175,3 +196,4 @@ def game(credit=100):
 credit = 100 + game()
 while input(f'Would you like to play again ({credit} credits)? [yes/no]: ')[0].lower() == 'y' and credit > 0:
     credit += game(credit)
+print('Had fun, come play again whenever you want!')
